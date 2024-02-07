@@ -33,19 +33,17 @@ function oldScrabbleScorer(word) {
 // don't change the names or your program won't work as expected. //
 
 function initialPrompt() {
-   let userInputOldScrabbleScorer = input.question("Let's play some scrabble! Enter a word:");
+   let userInputOldScrabbleScorer = input.question("Let's play some scrabble! Enter a word: ");
    console.log(oldScrabbleScorer(userInputOldScrabbleScorer));
 
-   let userInputSimpleScorer = input.question("Let's play some scrabble! Enter a word:");
+   let userInputSimpleScorer = input.question("Let's play some scrabble! Enter a word: ");
    console.log(simpleScorer(userInputSimpleScorer));
 
-   let userInputvowelBonusScorer = input.question("Let's play some scrabble! Enter a word:");
+   let userInputvowelBonusScorer = input.question("Let's play some scrabble! Enter a word: ");
    console.log(vowelBonusScorer(userInputvowelBonusScorer));
 };
 
-// let simpleScorer;
-
-function simpleScorer(word) {
+let simpleScorer = function (word) {
    word = word.toUpperCase();
    let letterPoints = 0;
 
@@ -55,16 +53,14 @@ function simpleScorer(word) {
    return letterPoints;
 }
 
-// let vowelBonusScorer;
-
-function vowelBonusScorer(word) {
+let vowelBonusScorer = function (word) {
    const vowels = ['A', 'E', 'I', 'O', 'U'];
    word = word.toUpperCase();
    let letterPoints = 0;
 
    for (let i = 0; i < word.length; i++) {
 
-      if(vowels.includes(word[i])) {
+      if (vowels.includes(word[i])) {
          letterPoints += 3;
       } else {
          letterPoints += 1;
@@ -73,9 +69,7 @@ function vowelBonusScorer(word) {
    return letterPoints;
 }
 
-// let scrabbleScorer;
-
-function scrabbleScorer(word) {
+let scrabbleScorer = function (word) {
    word = word.toLowerCase();
 	let letterPoints = 0;
  
@@ -86,7 +80,7 @@ function scrabbleScorer(word) {
       if (word[i] in newPointStructure) {
          letterPoints += newPointStructure[word[i]];
       }
-	  }
+	}
 	return letterPoints;
 }
 
@@ -114,7 +108,7 @@ function scorerPrompt() {
    console.log("1 - Vowel Bonus: Vowels are worth 3 points");
    console.log("2 - Scrabble: Uses scrabble point system");
 
-   const userSelectedNumber = parseInt(input.question("Enter 0, 1, or 2: "));
+   const userSelectedNumber = input.question("Enter 0, 1, or 2: ");
 
    if (userSelectedNumber >= 0 && userSelectedNumber <= 2) {
       return scoringAlgorithms[userSelectedNumber];
@@ -131,10 +125,7 @@ function transform(oldPointStructure) {
       for (const letter of letters) {
         newPointStructure[letter.toLowerCase()] = parseInt(points);
       }
-    }
-
-    console.log("newPointStructure is " + newPointStructure);
-  
+    }  
     return newPointStructure;
 };
 
@@ -146,7 +137,12 @@ let newPointStructure = transform(oldPointStructure);
 function runProgram() {
    // initialPrompt();
 
-   let word = input.question("Let's play some scrabble! Enter a word:");
+   let word = input.question("Let's play some scrabble! Enter a word: ");
+   var regex = /^[a-zA-Z\s]+$/; //Bonus
+   if (!regex.test(word)) {
+      return runProgram();
+   }
+
    const score = scorerPrompt().scorerFunction(word);
    console.log(`Score for '${word}': ${score}`);
 
@@ -157,7 +153,7 @@ function runProgram() {
 
    // console.log(newPointStructure);
 
-   // let word = input.question("Let's play some scrabble! Enter a word:");
+   // let word = input.question("Let's play some scrabble! Enter a word: ");
    // console.log(`Score for '${word}' is: ${scrabbleScorer(word)}`);
 }
 
